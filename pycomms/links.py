@@ -1,11 +1,10 @@
-from __future__ import annotations
 
 import threading
 import time
 from pycomms import core
 
 
-class DummyTransmitter(core.CommunicationLink):
+class DummyTransmitter(core.Transmitter):
     def send(self, message: bytes) -> None:
         pass
 
@@ -34,7 +33,7 @@ class ThreadedReceiver(core.Receiver):
             return None
         return self._message_queue.pop()
 
-    def _receive_message_loop(self) -> None:
+    def _receive_message_loop(self):
         while self._receive_thread.is_alive():
             next_message = self._receiver.receive()
             if next_message is not None:

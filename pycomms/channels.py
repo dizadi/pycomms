@@ -5,12 +5,12 @@ from pycomms import links, core
 class BaseChannel(core.Channel):
     def send_to(self, message: bytes, address: str):
         link = self._find_link_by_address(address=address)
-        if link is not None and link.direction is not core.InformationDirection.INCOMING:
+        if link is not None and link.direction is not core.InformationFlow.INCOMING:
             link.send(message)
 
     def receive_from(self, address: str) -> bytes | None:
         link = self._find_link_by_address(address=address)
-        if link is not None and link.direction is not core.InformationDirection.OUTGOING:
+        if link is not None and link.direction is not core.InformationFlow.OUTGOING:
             return link.receive()
         return None
         
